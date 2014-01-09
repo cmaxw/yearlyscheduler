@@ -1,0 +1,41 @@
+<h1><%= @year %></h1>
+
+<div class="row-fluid" style="margin-bottom: 20px;">
+  <% ["996633", "9999CC", "FFFF00", "666633", "99CCCC", "993333"].each do |color| %>
+    <div class="span2" id="label-<%= color %>" style="background-color: #<%= color %>;">
+      &nbsp;
+    </div>
+  <% end %>
+</div>
+
+
+<table class="table table-bordered">
+  <tr>
+    <th></th>
+    <% 0.upto(36).each do |i| %>
+      <% td_text = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"][i%7] %>
+      <th class="calendar-dow"><%= td_text %></th>
+    <% end %>
+  </tr>
+  <% Date::ABBR_MONTHNAMES.each_with_index do |month, index| %>
+    <% if month %>
+      <tr>
+        <th class="calendar-monthname"><%= month.upcase %></th>
+        <% month_start = Date.new(@year, index, 1).wday - 1 %>
+        <% month_start = 6 if month_start == -1 %>
+        <% days_in_month = Time.days_in_month(index, @year) %>
+        <% 0.upto(month_start - 1).each do |i| %>
+          <td></td>
+        <% end %>
+        <% 1.upto(days_in_month).each do |i| %>
+          <td class="calendar-day" id="day-<%= index %>-<%= i %>" data-month="<%= index %>" data-day="<%= i %>"><%= i %></td>
+        <% end %>
+        <% 0.upto(36 - days_in_month - month_start).each do |i| %>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+<p>Find me in app/views/calendar/index.html.erb</p>

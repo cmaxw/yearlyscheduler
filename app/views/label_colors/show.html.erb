@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @label_color.name %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @label_color.color %>
+</p>
+
+<%= link_to 'Edit', edit_label_color_path(@label_color) %> |
+<%= link_to 'Back', label_colors_path %>
