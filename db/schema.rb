@@ -11,20 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109154119) do
+ActiveRecord::Schema.define(version: 20140110044314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "events", force: true do |t|
-    t.date     "start_date"
-    t.date     "end_date"
+  create_table "date_labels", force: true do |t|
+    t.date     "day"
     t.integer  "label_color_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "events", ["label_color_id"], name: "index_events_on_label_color_id", using: :btree
+  add_index "date_labels", ["label_color_id"], name: "index_date_labels_on_label_color_id", using: :btree
+  add_index "date_labels", ["user_id"], name: "index_date_labels_on_user_id", using: :btree
 
   create_table "label_colors", force: true do |t|
     t.string   "name"

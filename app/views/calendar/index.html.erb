@@ -2,10 +2,19 @@
 
 <div class="row-fluid" style="margin-bottom: 20px;">
   <% ["996633", "9999CC", "FFFF00", "666633", "99CCCC", "993333"].each do |color| %>
-    <div class="span2" id="label-<%= color %>" style="background-color: #<%= color %>;">
-      &nbsp;
+    <div class="span2">
+      <div class="label-button label-<%= color %>" id="label-<%= color %>" style="background-color: #<%= color %>; width: 50%; float: left;">
+        <% label_color = current_user && current_user.label_colors.where(color: color).first %>
+        <%= label_color ? label_color.name : "&nbsp;".html_safe %>
+      </div>
+      <button type="button" class="btn">
+        <span class="icon-pencil"></span>
+      </button>
     </div>
   <% end %>
+  <div class="span1" id="label-clear" style="border: 1px solid #666666">
+    Clear Selected
+  </div>
 </div>
 
 

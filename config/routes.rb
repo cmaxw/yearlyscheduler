@@ -1,8 +1,6 @@
 Yearscheduler::Application.routes.draw do
   resources :label_colors
 
-  resources :events
-
   get "calendar", to: "calendar#index"
   get "calendar/:year", to: "calendar#index"
 
