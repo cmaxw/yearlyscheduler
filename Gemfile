@@ -5,14 +5,14 @@ group :doc do
 end
 
 group :development do
-  gem "capistrano-rails"
+  gem "capistrano-rails", "~> 1.1.1"
   gem "debugger", "~> 1.6.5"
   gem "rspec-rails", "~> 2.14.1"
   gem "factory_girl_rails", "~> 4.3.0"
 end
 
 group :test do
-  gem "capistrano-rails"
+  gem "capistrano-rails", "~> 1.1.1"
   gem "debugger", "~> 1.6.5"
   gem "rspec-rails", "~> 2.14.1"
   gem "factory_girl_rails", "~> 4.3.0"

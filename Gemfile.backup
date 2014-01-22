@@ -5,14 +5,14 @@ group :doc do
 end
 
 group :development do
-  gem "capistrano", "~> 3.0.1"
+  gem "capistrano-rails"
   gem "debugger", "~> 1.6.5"
   gem "rspec-rails", "~> 2.14.1"
   gem "factory_girl_rails", "~> 4.3.0"
 end
 
 group :test do
-  gem "capistrano", "~> 3.0.1"
+  gem "capistrano-rails"
   gem "debugger", "~> 1.6.5"
   gem "rspec-rails", "~> 2.14.1"
   gem "factory_girl_rails", "~> 4.3.0"
@@ -30,4 +30,4 @@ gem "coffee-rails", "~> 4.0.1"
 gem "jquery-rails", "~> 3.0.4"
 gem "turbolinks", "~> 2.1.0"
 gem "jbuilder", "~> 1.5.3"
-gem "annotate"
+gem "annotate", "~> 2.6.1"

@@ -1,7 +1,7 @@
 set :application, 'yearscheduler'
-set :repo_url, 'git@github.com:cmaxw/yearscheduler.git'
+set :repo_url, 'git@github.com:cmaxw/yearlyscheduler.git'
 
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+set :branch, 'master'
 
 set :deploy_to, '/var/www/yearscheduler'
 set :scm, :git
@@ -37,4 +37,15 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
 
+end
+
+desc "Check that we can access everything"
+task :check_write_permissions do
+  on roles(:all) do |host|
+    if test("[ -w #{fetch(:deploy_to)} ]")
+      info "#{fetch(:deploy_to)} is writable on #{host}"
+    else
+      error "#{fetch(:deploy_to)} is not writable on #{host}"
+    end
+  end
 end
