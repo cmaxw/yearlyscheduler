@@ -3,20 +3,32 @@
 <div class="row-fluid" style="margin-bottom: 20px;">
   <% ["996633", "9999CC", "FFFF00", "666633", "99CCCC", "993333"].each do |color| %>
     <div class="span2">
-      <div class="label-button label-<%= color %>" id="label-<%= color %>" style="background-color: #<%= color %>; width: 50%; float: left;">
+      <div class="label-button label-<%= color %>" id="label-<%= color %>" style="background-color: #<%= color %>; width: 50%; float: left; padding: 5px 12px;">
         <% label_color = current_user && current_user.label_colors.where(color: color).first %>
-        <%= label_color ? label_color.name : "&nbsp;".html_safe %>
+        <div class="label-text">
+          <%= label_color ? label_color.name : "Click <span class=\"icon-pencil\"></span> to Change".html_safe %>
+        </div>
+        <div class="label-form" style="display: none;">
+          <%= form_tag "/updateLabel" do %>
+            <%= text_field_tag :name, "", style: "width: 90%; padding: 0; margin-bottom: 0" %>
+            <%= hidden_field_tag :color, color %>
+          <% end %>
+        </div>
       </div>
-      <button type="button" class="btn">
+      <button type="button" class="btn label-edit" data-color="<%= color %>" style="margin-left: 10px;">
         <span class="icon-pencil"></span>
       </button>
     </div>
   <% end %>
-  <div class="span1" id="label-clear" style="border: 1px solid #666666">
-    Clear Selected
-  </div>
 </div>
 
+<div class="row-fluid" style="margin-bottom: 20px;">
+  <div class="span2">
+    <button id="label-clear" class="btn" style="padding: 5px 12px; width: 50%;">
+      Clear Selected
+    </button>
+  </div>
+</div>
 
 <table class="table table-bordered">
   <tr>
@@ -37,7 +49,7 @@
           <td></td>
         <% end %>
         <% 1.upto(days_in_month).each do |i| %>
-          <td class="calendar-day" id="day-<%= index %>-<%= i %>" data-month="<%= index %>" data-day="<%= i %>"><%= i %></td>
+          <td class="calendar-day <%= @day_labels["#{@year}-#{index}-#{i}"] %>" id="day-<%= index %>-<%= i %>" data-month="<%= index %>" data-day="<%= i %>" data-year="<%= @year %>"><%= i %></td>
         <% end %>
         <% 0.upto(36 - days_in_month - month_start).each do |i| %>
           <td></td>
@@ -47,4 +59,4 @@
   <% end %>
 </table>
 
-<p>Find me in app/views/calendar/index.html.erb</p>
+<p></p>

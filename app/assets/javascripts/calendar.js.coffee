@@ -81,6 +81,11 @@ Calendar =
         el.removeClass("label-#{hexcolor}")
       el.removeClass("selected")
       this.persistDateAs(el.data("year"), el.data("month"), el.data("day"), null)
+  editLabel: (e) ->
+    color = $(e).data("color")
+    color = $(e).parent().data("color") unless color
+    $("#label-#{color} .label-text").hide()
+    $("#label-#{color} .label-form").show()
 
 
 $(document).ready ->
@@ -91,7 +96,22 @@ $(document).ready ->
       Calendar.clearSelection()
       Calendar.select(e.target)
   $('.label-button').click (e) ->
-    color = $(e.target).attr('id').replace("label-", "")
+    color = $(e.currentTarget).attr('id').replace("label-", "")
     Calendar.colorize(color)
   $('#label-clear').click (e) ->
     Calendar.unlabelSelection()
+  $('.label-edit').click (e) ->
+    Calendar.editLabel(e.target)
+  $('.label-form form :text').keypress (e) ->
+    if e.which == 13
+      e.preventDefault()
+      form = $(e.target).parent()
+      color = ""
+      for pair in form.serializeArray()
+        color = pair.value if pair.name == 'color'
+      for pair in form.serializeArray()
+        $("#label-#{color} .label-text").html(pair.value) if pair.name == 'name'
+      $.post("/updateLabel", form.serialize())
+      $("#label-#{color} .label-text").show()
+      $("#label-#{color} .label-form").hide()
+      false
